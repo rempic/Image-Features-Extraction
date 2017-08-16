@@ -1,21 +1,35 @@
-Code Documentation
+Classes/Modules
 =================
+
+
+Images
+----------
 
 .. automodule:: Images
        :members:
        :inherited-members:
        :undoc-members:
 
+
+Image
+---------
+
 .. automodule:: Image
       :members:
       :inherited-members:
       :undoc-members:
 
+
+Regions
+-----------
 .. automodule:: Regions
     :members:
     :inherited-members:
     :undoc-members:
 
+
+Region
+----------
 .. automodule:: Region
     :members:
     :inherited-members:

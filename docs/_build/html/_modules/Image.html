@@ -48,8 +48,16 @@
 <span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">Regions</span>
 <span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">MyException</span>
 
-<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../code.html#Image.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
+<div class="viewcode-block" id="Image"><a class="viewcode-back" href="../code.html#Image.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class image containing the single image obtained from the collection :class:`Images`</span>
+
+<span class="sd">    :example:</span>
+<span class="sd">    &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">    &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">    &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">full_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__full_file_name</span> <span class="o">=</span> <span class="n">full_name</span>
@@ -62,10 +70,21 @@
 
 
 <div class="viewcode-block" id="Image.file_name"><a class="viewcode-back" href="../code.html#Image.Image.file_name">[docs]</a>    <span class="k">def</span> <span class="nf">file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        file_name(...) return the full file name of the image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__full_file_name</span></div>
 
 
 <div class="viewcode-block" id="Image.regions"><a class="viewcode-back" href="../code.html#Image.Image.regions">[docs]</a>    <span class="k">def</span> <span class="nf">regions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        regions(...) returns the Object Regions</span>
+
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">regs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_regions</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">Regions</span><span class="o">.</span><span class="n">Regions</span><span class="p">(</span><span class="n">regs</span><span class="p">)</span>
@@ -79,11 +98,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">())</span>
         <span class="c1"># ithresholding to build the map</span>
         <span class="n">val</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">threshold_otsu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
-
+        <span class="c1"># cretes the mask</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">val</span>
+        <span class="c1"># returns the single segmented elements of the image</span>
         <span class="n">labels_segment</span> <span class="o">=</span> <span class="n">label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__mask</span><span class="p">)</span>
+        <span class="c1"># removes the image elements at the border</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span> <span class="o">=</span> <span class="n">clear_border</span><span class="p">(</span><span class="n">labels_segment</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span></div>
 </pre></div>
 
@@ -106,7 +126,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Classes/Modules</a></li>
 </ul>
 
 <div class="relations">

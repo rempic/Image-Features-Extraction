@@ -47,21 +47,50 @@
 
 
 <div class="viewcode-block" id="Regions"><a class="viewcode-back" href="../code.html#Regions.Regions">[docs]</a><span class="k">class</span> <span class="nc">Regions</span><span class="p">(</span><span class="n">my_iterator</span><span class="o">.</span><span class="n">my_iterator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represent a collection of regions: segmented image elements</span>
+<span class="sd">    It cannot be instanced directly. It is returned from the object :class:`Image` through the function</span>
+<span class="sd">    Regions(...)</span>
+
+<span class="sd">    :example:</span>
+<span class="sd">    &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">    &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">    &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">    &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_regions</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">__iterator_init__</span><span class="p">()</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions_org</span> <span class="o">=</span> <span class="n">obj_regions</span>
-             <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span> <span class="o">=</span> <span class="n">regionprops</span><span class="p">(</span><span class="n">obj_regions</span><span class="p">)</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span> <span class="o">=</span> <span class="n">regionprops</span><span class="p">(</span><span class="n">obj_regions</span><span class="p">)</span> <span class="c1"># used regionprops from skimage</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">count_update</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span><span class="p">))</span>
         <span class="k">except</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Regions.regions_obj"><a class="viewcode-back" href="../code.html#Regions.Regions.regions_obj">[docs]</a>    <span class="k">def</span> <span class="nf">regions_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions_org</span></div>
+
+    <span class="k">def</span> <span class="nf">__regions_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function returns the Internal object regions. it is used only for debugging</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions_org</span>
 
 
 <div class="viewcode-block" id="Regions.item"><a class="viewcode-back" href="../code.html#Regions.Regions.item">[docs]</a>    <span class="k">def</span> <span class="nf">item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Item(..) returns the i-th image element  of the regions.</span>
+
+<span class="sd">        :param i: the i-th element of the collection region</span>
+<span class="sd">        :type i: int</span>
+<span class="sd">        :returns: Region</span>
+<span class="sd">        :rtype: object</span>
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">        &gt;&gt;&gt; reg = regs.item(1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
                 <span class="k">raise</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span><span class="p">(</span><span class="s2">&quot;error: index out of bound&quot;</span><span class="p">)</span>
@@ -71,7 +100,24 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
+
 <div class="viewcode-block" id="Regions.prop_values"><a class="viewcode-back" href="../code.html#Regions.Regions.prop_values">[docs]</a>    <span class="k">def</span> <span class="nf">prop_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        prop_values(...) returns the values of the specified  property/measure name (e.g., &#39;area&#39;) for all image</span>
+<span class="sd">        elements contained in the object Regions. For a list of property names refer to &quot;regionprops  &lt;http://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops&gt;&quot;_.</span>
+
+<span class="sd">        :param prop_name: name of the property to measure (e.g, &#39;area&#39;)</span>
+<span class="sd">        :type prop_name: string</span>
+<span class="sd">        :returns: values of the property name in input</span>
+<span class="sd">        :rtype: List</span>
+
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">        &gt;&gt;&gt; areas = regs.prop_values(&#39;area&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
@@ -85,6 +131,24 @@
 
 
 <div class="viewcode-block" id="Regions.get_features"><a class="viewcode-back" href="../code.html#Regions.Regions.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">class_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;class_name&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_features(...)  returns a table with all  values for the property names given in input, and supplies an</span>
+<span class="sd">        additional parameter for feature classification</span>
+
+<span class="sd">        :param features: list of property/measure names (e.g, &#39;area&#39;, &#39;centroid&#39;, etc )</span>
+<span class="sd">        :type features: List</span>
+<span class="sd">        :param class_value: classification label</span>
+<span class="sd">        :type class_value: int, string (default=None)</span>
+<span class="sd">        :returns: table cointaining all property values (columns) for all elements in the regions object  (rows)</span>
+<span class="sd">        :rtype: Pandas.DataFrame</span>
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">        &gt;&gt;&gt; df = regs.get_features([&#39;label&#39;, &#39;area&#39;,&#39;perimeter&#39;, &#39;centroid&#39;], class_value=1)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
@@ -116,7 +180,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Classes/Modules</a></li>
 </ul>
 
 <div class="relations">
