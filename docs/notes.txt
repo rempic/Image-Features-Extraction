@@ -1,0 +1,5 @@
+to make the documentation go to the container folder and from the command line
+
+    make html
+
+(be sure that you are in the correct virtual environment)
