@@ -8,21 +8,41 @@ from image_features_extraction import MyException
 
 class Images(my_iterator.my_iterator):
     """
-    This class is used as collection of images which will be loaded from a given folder name
+    This class contains a collection of images
+
+    :param  folder_name: folder containing images
+    :type folder_name: string
+    :param  image_file_ext: images file extensions (default=['tif','tiff'])
+    :type folder_name: List of strings
+    :returns: an instance of the object Images
+    :rtype: object
+    :example:
+    >>> import image_features_extraction as fe
+    >>> imgs = fe.Images('my_folder', image_file_ext=['tif','tiff','jpeg'])
+    >>> num_images = imgs.count()
     """
+
+    # to implement the class as a collection this object inherits the abstract class my_iterator
     def __init__(self, folder_name, image_file_ext=['tif', 'tiff']):
-        self.__iterator_init__()  # initialize my iterator
+        """
+        class initializer. to implement the class as a collection this object inherits the abstract class my_iterator
+        """
+        self.__iterator_init__()  # initializes my_iterator
 
         self.__folder_name = folder_name
         self.__image_file_ext = image_file_ext
         self.__dicfiles = []
         try:
+            # load the files image into a list
             self.__load()
         except MyException.MyException as e:
             print(e.args)
 
 
     def __load(self):
+        """
+        load the files image into a list
+        """
         # check that the folder exists
         if os.path.isdir(self.__folder_name) == False:
             raise MyException.MyException("Error: folder name does not exist")
@@ -36,6 +56,9 @@ class Images(my_iterator.my_iterator):
 
 
     def __is_imagefile(self,file_name):
+        """
+        checks that the file is an image
+        """
         # check the extension of the file
         ext0 = file_name.split(".")[-1]
         for ext1 in self.__image_file_ext:
@@ -46,7 +69,16 @@ class Images(my_iterator.my_iterator):
 
     def item(self, i):
         """
-        image item
+        Item(..) returns the i-th image
+        
+        :param i: the i-th image
+        :type i: int
+        :returns: :class:`Image`
+        :rtype: object
+        :example:
+        >>> import image_features_extraction as fe
+        >>> imgs = fe.Images(folder_name)
+        >>> img = imgs.item(1)
         """
         try:
             if i >= self.count():

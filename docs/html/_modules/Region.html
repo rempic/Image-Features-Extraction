@@ -42,6 +42,10 @@
 <span></span><span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">MyException</span>
 
 <div class="viewcode-block" id="Region"><a class="viewcode-back" href="../code.html#Region.Region">[docs]</a><span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_region</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">obj_region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span>
@@ -55,10 +59,146 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">perimeter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_region</span><span class="o">.</span><span class="n">perimeter</span>            <span class="c1">#Perimeter of object which approximates the contour as a line through the centers of border pixels using a 4-connectivity.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_region</span><span class="o">.</span><span class="n">image</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">roi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_region</span><span class="o">.</span><span class="n">coords</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_region</span><span class="o">.</span><span class="n">bbox</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_region</span><span class="o">.</span><span class="n">bbox</span></div>
 
-<div class="viewcode-block" id="Region.area"><a class="viewcode-back" href="../code.html#Region.Region.area">[docs]</a>    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_region</span><span class="o">.</span><span class="n">area</span></div></div>
+    <span class="c1">#def area(self):</span>
+    <span class="c1">#    return self.__obj_region.area</span>
+
+<div class="viewcode-block" id="prop_value"><a class="viewcode-back" href="../code.html#Region.prop_value">[docs]</a><span class="k">def</span> <span class="nf">prop_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Measure  the specified  property name (e.g., &#39;area&#39;)</span>
+
+<span class="sd">    :param prop_name: name of the property to measure (e.g, &#39;area&#39;)</span>
+<span class="sd">    :type prop_name: string</span>
+<span class="sd">    :returns: value of the property name</span>
+<span class="sd">    :rtype: int,float,list</span>
+
+<span class="sd">    :example:</span>
+<span class="sd">    &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">    &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">    &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">    &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">    &gt;&gt;&gt; reg = regs.Region()</span>
+<span class="sd">    &gt;&gt;&gt; area = reg.prop_value(&#39;area&#39;)</span>
+
+<span class="sd">    For a list of property names refer to &quot;regionprops  &lt;http://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops&gt;&quot;_.</span>
+<span class="sd">    The following properties can be accessed as attributes or keys:</span>
+
+<span class="sd">    **area** : int</span>
+<span class="sd">        Number of pixels of region.</span>
+<span class="sd">    **bbox** : tuple</span>
+<span class="sd">        Bounding box ``(min_row, min_col, max_row, max_col)``.</span>
+<span class="sd">        Pixels belonging to the bounding box are in the half-open interval</span>
+<span class="sd">        ``[min_row; max_row)`` and ``[min_col; max_col)``.</span>
+<span class="sd">    **bbox_area** : int</span>
+<span class="sd">        Number of pixels of bounding box.</span>
+<span class="sd">    **centroid** : array</span>
+<span class="sd">        Centroid coordinate tuple ``(row, col)``.</span>
+<span class="sd">    **convex_area** : int</span>
+<span class="sd">        Number of pixels of convex hull image.</span>
+<span class="sd">    **convex_image** : (H, J) ndarray</span>
+<span class="sd">        Binary convex hull image which has the same size as bounding box.</span>
+<span class="sd">    **coords** : (N, 2) ndarray</span>
+<span class="sd">        Coordinate list ``(row, col)`` of the region.</span>
+<span class="sd">    **eccentricity** : float</span>
+<span class="sd">        Eccentricity of the ellipse that has the same second-moments as the</span>
+<span class="sd">        region. The eccentricity is the ratio of the focal distance</span>
+<span class="sd">        (distance between focal points) over the major axis length.</span>
+<span class="sd">        The value is in the interval [0, 1).</span>
+<span class="sd">        When it is 0, the ellipse becomes a circle.</span>
+<span class="sd">    **equivalent_diameter** : float</span>
+<span class="sd">        The diameter of a circle with the same area as the region.</span>
+<span class="sd">    **euler_number** : int</span>
+<span class="sd">        Euler characteristic of region. Computed as number of objects (= 1)</span>
+<span class="sd">        subtracted by number of holes (8-connectivity).</span>
+<span class="sd">    **extent** : float</span>
+<span class="sd">        Ratio of pixels in the region to pixels in the total bounding box.</span>
+<span class="sd">        Computed as ``area / (rows * cols)``</span>
+<span class="sd">    **filled_area** : int</span>
+<span class="sd">        Number of pixels of filled region.</span>
+<span class="sd">    **filled_image** : (H, J) ndarray</span>
+<span class="sd">        Binary region image with filled holes which has the same size as</span>
+<span class="sd">        bounding box.</span>
+<span class="sd">    **image** : (H, J) ndarray</span>
+<span class="sd">        Sliced binary region image which has the same size as bounding box.</span>
+<span class="sd">    **inertia_tensor** : (2, 2) ndarray</span>
+<span class="sd">        Inertia tensor of the region for the rotation around its mass.</span>
+<span class="sd">    **inertia_tensor_eigvals** : tuple</span>
+<span class="sd">        The two eigen values of the inertia tensor in decreasing order.</span>
+<span class="sd">    **intensity_image** : ndarray</span>
+<span class="sd">        Image inside region bounding box.</span>
+<span class="sd">    **label** : int</span>
+<span class="sd">        The label in the labeled input image.</span>
+<span class="sd">    **local_centroid** : array</span>
+<span class="sd">        Centroid coordinate tuple ``(row, col)``, relative to region bounding</span>
+<span class="sd">        box.</span>
+<span class="sd">    **major_axis_length** : float</span>
+<span class="sd">        The length of the major axis of the ellipse that has the same</span>
+<span class="sd">        normalized second central moments as the region.</span>
+<span class="sd">    **max_intensity** : float</span>
+<span class="sd">        Value with the greatest intensity in the region.</span>
+<span class="sd">    **mean_intensity** : float</span>
+<span class="sd">        Value with the mean intensity in the region.</span>
+<span class="sd">    **min_intensity** : float</span>
+<span class="sd">        Value with the least intensity in the region.</span>
+<span class="sd">    **minor_axis_length** : float</span>
+<span class="sd">        The length of the minor axis of the ellipse that has the same</span>
+<span class="sd">        normalized second central moments as the region.</span>
+<span class="sd">    **moments** : (3, 3) ndarray</span>
+<span class="sd">        Spatial moments up to 3rd order::</span>
+<span class="sd">            m_ji = sum{ array(x, y) * x^j * y^i }</span>
+<span class="sd">        where the sum is over the `x`, `y` coordinates of the region.</span>
+<span class="sd">    **moments_central** : (3, 3) ndarray</span>
+<span class="sd">        Central moments (translation invariant) up to 3rd order::</span>
+<span class="sd">            mu_ji = sum{ array(x, y) * (x - x_c)^j * (y - y_c)^i }</span>
+<span class="sd">        where the sum is over the `x`, `y` coordinates of the region,</span>
+<span class="sd">        and `x_c` and `y_c` are the coordinates of the region&#39;s centroid.</span>
+<span class="sd">    **moments_hu** : tuple</span>
+<span class="sd">        Hu moments (translation, scale and rotation invariant).</span>
+<span class="sd">    **moments_normalized** : (3, 3) ndarray</span>
+<span class="sd">        Normalized moments (translation and scale invariant) up to 3rd order::</span>
+<span class="sd">            nu_ji = mu_ji / m_00^[(i+j)/2 + 1]</span>
+<span class="sd">        where `m_00` is the zeroth spatial moment.</span>
+<span class="sd">    **orientation** : float</span>
+<span class="sd">        Angle between the X-axis and the major axis of the ellipse that has</span>
+<span class="sd">        the same second-moments as the region. Ranging from `-pi/2` to</span>
+<span class="sd">        `pi/2` in counter-clockwise direction.</span>
+<span class="sd">    **perimeter** : float</span>
+<span class="sd">        Perimeter of object which approximates the contour as a line</span>
+<span class="sd">        through the centers of border pixels using a 4-connectivity.</span>
+<span class="sd">    **solidity** : float</span>
+<span class="sd">        Ratio of pixels in the region to pixels of the convex hull image.</span>
+<span class="sd">    **weighted_centroid** : array</span>
+<span class="sd">        Centroid coordinate tuple ``(row, col)`` weighted with intensity</span>
+<span class="sd">        image.</span>
+<span class="sd">    **weighted_local_centroid** : array</span>
+<span class="sd">        Centroid coordinate tuple ``(row, col)``, relative to region bounding</span>
+<span class="sd">        box, weighted with intensity image.</span>
+<span class="sd">    **weighted_moments** : (3, 3) ndarray</span>
+<span class="sd">        Spatial moments of intensity image up to 3rd order::</span>
+<span class="sd">            wm_ji = sum{ array(x, y) * x^j * y^i }</span>
+<span class="sd">        where the sum is over the `x`, `y` coordinates of the region.</span>
+<span class="sd">    **weighted_moments_central** : (3, 3) ndarray</span>
+<span class="sd">        Central moments (translation invariant) of intensity image up to</span>
+<span class="sd">        3rd order::</span>
+<span class="sd">            wmu_ji = sum{ array(x, y) * (x - x_c)^j * (y - y_c)^i }</span>
+<span class="sd">        where the sum is over the `x`, `y` coordinates of the region,</span>
+<span class="sd">        and `x_c` and `y_c` are the coordinates of the region&#39;s weighted</span>
+<span class="sd">        centroid.</span>
+<span class="sd">    **weighted_moments_hu** : tuple</span>
+<span class="sd">        Hu moments (translation, scale and rotation invariant) of intensity</span>
+<span class="sd">        image.</span>
+<span class="sd">    **weighted_moments_normalized** : (3, 3) ndarray</span>
+<span class="sd">        Normalized moments (translation and scale invariant) of intensity</span>
+<span class="sd">        image up to 3rd order::</span>
+<span class="sd">            wnu_ji = wmu_ji / wm_00^[(i+j)/2 + 1]</span>
+<span class="sd">        where ``wm_00`` is the zeroth spatial moment (intensity-weighted area).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj_region</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 </pre></div>
 
           </div>

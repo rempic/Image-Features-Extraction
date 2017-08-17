@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 class my_iterator(object):
     """
-    abstract class for the object iterator to implement a collection
+    abstract class used to implement a collection class
     """
     __metaclass__ = ABCMeta
 
@@ -13,22 +13,34 @@ class my_iterator(object):
 
 
     def item(self, i):
-            pass
+        """
+        item has to be inplemented in the main class
+        """
+        pass
 
     def count_update(self, count):
         self.__count = count
         return count
 
     def count(self):
+        """
+        returns the number of items 
+        """
         return self.__count
 
-    # used to define the iterator: next element
+
     def __iter__(self):
+        """
+        Python method to define and call the iterator
+        """
         return self
 
 
     # used to define the iterator: next element
     def __next__(self):
+        """
+        Python method to calls the iterator next element
+        """
         self.current += 1
         if self.current >= self.__count:
             self.current = -1

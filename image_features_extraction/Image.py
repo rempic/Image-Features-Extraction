@@ -10,7 +10,7 @@ from image_features_extraction import MyException
 
 class Image(object):
     """
-    Class image containing the single image obtained from the collection :class:`Images`
+    This class instantiate an object Image through the :class:`Images` and refers to a specific file image
 
     :example:
     >>> import image_features_extraction as fe
@@ -30,7 +30,10 @@ class Image(object):
 
     def file_name(self):
         """
-        file_name(...) return the full file name of the image
+        full file name of the image
+
+        :returns: file name
+        :rtype: string
         """
         return self.__full_file_name
 
@@ -38,7 +41,9 @@ class Image(object):
     def regions(self):
         """
         regions(...) returns the Object Regions
-
+        
+        :returns:  :class:`Regions`
+        :rtype: string
         >>> import image_features_extraction as fe
         >>> imgs = fe.Images(folder_name)
         >>> img = imgs.item(1)
