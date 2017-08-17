@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Regions &#8212; image features extraction 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Regions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">my_iterator</span>
+<span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">Region</span>
+<span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">MyException</span>
+<span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="k">import</span> <span class="n">label</span><span class="p">,</span> <span class="n">regionprops</span>
+
+
+<div class="viewcode-block" id="Regions"><a class="viewcode-back" href="../code.html#Regions.Regions">[docs]</a><span class="k">class</span> <span class="nc">Regions</span><span class="p">(</span><span class="n">my_iterator</span><span class="o">.</span><span class="n">my_iterator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represent a collection of regions: segmented image elements</span>
+<span class="sd">    It cannot be instanced directly. It is returned from the object :class:`Image` through the function</span>
+<span class="sd">    Regions(...)</span>
+
+<span class="sd">    :example:</span>
+<span class="sd">    &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">    &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">    &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">    &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_regions</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">__iterator_init__</span><span class="p">()</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions_org</span> <span class="o">=</span> <span class="n">obj_regions</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span> <span class="o">=</span> <span class="n">regionprops</span><span class="p">(</span><span class="n">obj_regions</span><span class="p">)</span> <span class="c1"># used regionprops from skimage</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">count_update</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">__regions_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function returns the Internal object regions. it is used only for debugging</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions_org</span>
+
+
+<div class="viewcode-block" id="Regions.item"><a class="viewcode-back" href="../code.html#Regions.Regions.item">[docs]</a>    <span class="k">def</span> <span class="nf">item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Item(..) returns the i-th image element  of the regions.</span>
+
+<span class="sd">        :param i: the i-th element of the collection region</span>
+<span class="sd">        :type i: int</span>
+<span class="sd">        :returns: Region</span>
+<span class="sd">        :rtype: object</span>
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">        &gt;&gt;&gt; reg = regs.item(1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span><span class="p">(</span><span class="s2">&quot;error: index out of bound&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">Region</span><span class="o">.</span><span class="n">Region</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">except</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Regions.prop_values"><a class="viewcode-back" href="../code.html#Regions.Regions.prop_values">[docs]</a>    <span class="k">def</span> <span class="nf">prop_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        prop_values(...) returns the values of the specified  property/measure name (e.g., &#39;area&#39;) for all image</span>
+<span class="sd">        elements contained in the object Regions. For a list of property names refer to &quot;regionprops  &lt;http://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops&gt;&quot;_.</span>
+
+<span class="sd">        :param prop_name: name of the property to measure (e.g, &#39;area&#39;)</span>
+<span class="sd">        :type prop_name: string</span>
+<span class="sd">        :returns: values of the property name in input</span>
+<span class="sd">        :rtype: List</span>
+
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">        &gt;&gt;&gt; areas = regs.prop_values(&#39;area&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span><span class="p">:</span>
+                <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">vals</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Regions.get_features"><a class="viewcode-back" href="../code.html#Regions.Regions.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">class_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;class_name&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_features(...)  returns a table with all  values for the property names given in input, and supplies an</span>
+<span class="sd">        additional parameter for feature classification</span>
+
+<span class="sd">        :param features: list of property/measure names (e.g, &#39;area&#39;, &#39;centroid&#39;, etc )</span>
+<span class="sd">        :type features: List</span>
+<span class="sd">        :param class_value: classification label</span>
+<span class="sd">        :type class_value: int, string (default=None)</span>
+<span class="sd">        :returns: table cointaining all property values (columns) for all elements in the regions object  (rows)</span>
+<span class="sd">        :rtype: Pandas.DataFrame</span>
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
+<span class="sd">        &gt;&gt;&gt; df = regs.get_features([&#39;label&#39;, &#39;area&#39;,&#39;perimeter&#39;, &#39;centroid&#39;], class_value=1)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop_values</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">class_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">class_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">class_value</span>
+            <span class="k">return</span> <span class="n">df</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;one or more input labels might be wrong:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">image features extraction</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Classes/Modules</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Remigio Picone.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
