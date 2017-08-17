@@ -25,11 +25,20 @@ by using  the  image features extraction package  to build a training set for a 
 
 The image below show a possible workflow for the image features extraction package where two sets of images
 with different labels were  extracted and returned in a table. Then the table can be used as training set to train
- a machine learning classifier
+a machine learning classifier
 
 .. image:: _static/2b.png
   :width: 600px
   :alt: alternate text
+
+The image features extraction package  has a  document object model architecture (shown below)
+
+.. image:: _static/3b.png
+  :width: 600px
+  :alt: alternate text
+
+See classes/modules documentation for more details about the package code
+
 
 
 Contents:
