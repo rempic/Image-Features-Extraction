@@ -48,7 +48,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'image features extraction'
+project = 'Image Features Extraction'
 copyright = '2017, Remigio Picone'
 author = 'Remigio Picone'
 
@@ -144,7 +144,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'imagefeaturesextraction.tex', 'image features extraction Documentation',
+    (master_doc, 'imagefeaturesextraction.tex', 'Image Features Extraction Documentation',
      'Remigio Picone', 'manual'),
 ]
 
@@ -154,7 +154,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'imagefeaturesextraction', 'image features extraction Documentation',
+    (master_doc, 'imagefeaturesextraction', 'Image Features Extraction Documentation',
      [author], 1)
 ]
 
@@ -165,7 +165,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'imagefeaturesextraction', 'image features extraction Documentation',
-     author, 'imagefeaturesextraction', 'One line description of project.',
+    (master_doc, 'imagefeaturesextraction', 'Image Features Extraction Documentation',
+     author, 'imagefeaturesextraction', 'This package allows the fast extraction and classification of features from a set of images',
      'Miscellaneous'),
 ]
