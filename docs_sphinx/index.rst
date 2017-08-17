@@ -16,9 +16,8 @@ The package was originally developed to extract measurements of single cell nucl
    :width: 600px
    :alt: alternate text
 
-Below it is  shown an example of an image of triangular shapes obtained  from Google which was
-used with the  image features extraction package and to build a training set for a machine learning classification
-of geometrical shapes
+Below it is shown an example of an image with triangular shapes obtained  from Google, which features were extracted
+by using  the  image features extraction package  to build a training set for a machine learning classifier
 
 .. image:: _static/7c.png
   :width: 500px
