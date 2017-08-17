@@ -69,8 +69,8 @@ class Images(my_iterator.my_iterator):
 
     def item(self, i):
         """
-        Item(..) returns the i-th image
-        
+        returns the i-th image
+
         :param i: the i-th image
         :type i: int
         :returns: :class:`Image`

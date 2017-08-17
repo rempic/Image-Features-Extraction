@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>image features extraction documentation &#8212; image features extraction 1.0.0 documentation</title>
+    <title>Image Features Extraction &#8212; image features extraction 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="intro.html" />
+    <link rel="next" title="Tutorial" href="tutorial.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -39,12 +39,27 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="image-features-extraction-documentation">
-<h1>image features extraction documentation<a class="headerlink" href="#image-features-extraction-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="image-features-extraction">
+<h1>Image Features Extraction<a class="headerlink" href="#image-features-extraction" title="Permalink to this headline">¶</a></h1>
+<p>This package allows the fast extraction and classification of features  from a set of images. Then the resulting
+table can be used as training set for a classification machine learning model</p>
+<p>The package was originally developed to extract measurements of single cell nuclei from microscopy images
+(see figure below), but it can be used to extract features from any set of images.</p>
+<a class="reference internal image-reference" href="_images/1.png"><img alt="alternate text" src="_images/1.png" style="width: 600px;" /></a>
+<p>Below it is  shown an example of an image of triangular shapes obtained  from Google which was
+used with the  image features extraction package and to build a training set for a machine learning classification
+of geometrical shapes</p>
+<a class="reference internal image-reference" href="_images/7c.png"><img alt="alternate text" src="_images/7c.png" style="width: 500px;" /></a>
+<p>The image below show a possible workflow for the image features extraction package where two sets of images
+with different labels were  extracted and returned in a table. Then the table can be used as training set to train</p>
+<blockquote>
+<div>a machine learning classifier</div></blockquote>
+<a class="reference internal image-reference" href="_images/2b.png"><img alt="alternate text" src="_images/2b.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="contents">
+<h1>Contents:<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Classes/Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="code.html#module-Images">Images</a></li>
@@ -55,14 +70,6 @@
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
 </div>
 
 
@@ -81,9 +88,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Classes/Modules</a></li>
 </ul>
@@ -92,7 +97,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="intro.html" title="next chapter">Introduction</a></li>
+      <li>Next: <a href="tutorial.html" title="next chapter">Tutorial</a></li>
   </ul></li>
 </ul>
 </div>
