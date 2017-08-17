@@ -18,13 +18,15 @@ class my_iterator(object):
         """
         pass
 
+
     def count_update(self, count):
         self.__count = count
         return count
 
+
     def count(self):
         """
-        returns the number of items 
+        returns the number of items
         """
         return self.__count
 
