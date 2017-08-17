@@ -1,0 +1,6 @@
+{
+  "dist": {
+    "repo": "git@github.com:user/repo.git#gh-pages",
+    "beforeStageCommand": "cat front.yml ../README.md > index.md"
+  }
+}
