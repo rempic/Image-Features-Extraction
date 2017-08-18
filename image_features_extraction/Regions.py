@@ -190,8 +190,8 @@ class Regions(my_iterator.my_iterator):
             image up to 3rd order::
                 wnu_ji = wmu_ji / wm_00^[(i+j)/2 + 1]
             where ``wm_00`` is the zeroth spatial moment (intensity-weighted area).
-        References
-        ----------
+
+
         .. [1] http://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops
         """
         try:
