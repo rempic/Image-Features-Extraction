@@ -2,6 +2,8 @@ import pandas as pd
 from image_features_extraction import my_iterator
 from image_features_extraction import Region
 from image_features_extraction import MyException
+from image_features_extraction import Features
+
 from skimage.measure import label, regionprops
 
 
@@ -227,7 +229,7 @@ class Regions(my_iterator.my_iterator):
                 df[f] = self.prop_values(f)
             if class_value is not None:
                 df[class_name] = class_value
-            return df
+            return Features.Features(df)
         except Exception as e:
             print("one or more input labels might be wrong:{}".format(e))
             return None

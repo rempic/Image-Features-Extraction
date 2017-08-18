@@ -43,6 +43,8 @@
 <span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">my_iterator</span>
 <span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">Region</span>
 <span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">MyException</span>
+<span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">Features</span>
+
 <span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="k">import</span> <span class="n">label</span><span class="p">,</span> <span class="n">regionprops</span>
 
 
@@ -268,7 +270,7 @@
                 <span class="n">df</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop_values</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">class_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">df</span><span class="p">[</span><span class="n">class_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">class_value</span>
-            <span class="k">return</span> <span class="n">df</span>
+            <span class="k">return</span> <span class="n">Features</span><span class="o">.</span><span class="n">Features</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;one or more input labels might be wrong:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="k">return</span> <span class="kc">None</span></div></div>

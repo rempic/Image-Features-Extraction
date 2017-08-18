@@ -4,7 +4,6 @@ Classes/Modules
 
 Images
 ----------
-
 .. automodule:: Images
        :members:
        :inherited-members:
@@ -13,7 +12,6 @@ Images
 
 Image
 ---------
-
 .. automodule:: Image
       :members:
       :inherited-members:
@@ -31,6 +29,14 @@ Regions
 Region
 ----------
 .. automodule:: Region
+    :members:
+    :inherited-members:
+    :undoc-members:
+
+
+Features
+--------------
+.. automodule:: Features
     :members:
     :inherited-members:
     :undoc-members:
