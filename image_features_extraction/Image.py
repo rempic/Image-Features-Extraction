@@ -3,6 +3,7 @@ import scipy.misc as sm
 from skimage.measure import label
 from skimage import filters, io
 from skimage.segmentation import clear_border
+from skimage.color import label2rgb
 
 from image_features_extraction import Regions
 from image_features_extraction import MyException
@@ -41,7 +42,7 @@ class Image(object):
     def regions(self):
         """
         regions(...) returns the Object Regions
-        
+
         :returns:  :class:`Regions`
         :rtype: string
         >>> import image_features_extraction as fe
@@ -69,3 +70,17 @@ class Image(object):
         # removes the image elements at the border
         self.__regions = clear_border(labels_segment)
         return self.__regions
+
+
+    def get_image_segmentation(self):
+        """
+        Builds the image with mask overlay to show the segmentation
+
+        :returns: The image in RGB format, in a 3-D array of shape (.., .., 3).
+        :rtype: ndarray
+        """
+        try:
+            return  label2rgb(self.__regions, image=self.__mask)
+        except MyException.MyException as e:
+            print(e.args)
+            return None

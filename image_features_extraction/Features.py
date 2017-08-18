@@ -49,9 +49,9 @@ class Features(object):
         load the data from the local directory with name indicated
         """
         if do_append==True:
-            add_header = True
+            add_header = False
             if os.path.isfile(file_name) == False:
-                add_header = False
+                add_header = True
             with open(file_name, 'a') as f: # it appends or creates a new file
                 self.__data_frame.to_csv(f, header=add_header)
         else:

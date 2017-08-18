@@ -204,7 +204,7 @@ class Regions(my_iterator.my_iterator):
             return None
 
 
-    def get_features(self, features, class_value=None, class_name='class_name'):
+    def get_features(self, features, class_value=None, class_name=None):
         """
         get_features(...)  returns a table with all  values for the property names given in input, and supplies an
         additional parameter for feature classification

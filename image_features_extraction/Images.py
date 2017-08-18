@@ -86,3 +86,37 @@ class Images(my_iterator.my_iterator):
             return Image.Image(os.path.join(self.__folder_name, self.__dicfiles[i]))
         except MyException.MyException as e:
             print(e.args)
+
+
+    def save(self, storage_name, type_storage='file', do_append=True):
+        """
+        save the regions from the set of  images into the type of storage given in input.
+
+        :param storage_name: storage name, (e.g., file name if ' storage type is 'file')
+        :type storage_name: string
+        :param type_storage:  type of storage (default is 'file') ('db', 'json' will be future implementations)
+        :type type_storage: string
+        :param do_append: if True it appends to existing storage. If False it creates a new storage
+        :type do_append: boolean
+        if  'do_append=True': This version of the method does not check whether the new data are consistent with presisitng data into
+        the existing storage. It just tris to append the date and might fail or not depending on the type of storage
+        :returns: 1 if sucessuful otherwise 0
+        :rtype: int
+
+        :example:
+        >>> import image_features_extraction as fe
+        >>> imgs = fe.Images(folder_name)
+        >>> imgs..save('my_file_name')
+        """
+        try:
+            if type_storage == 'file':
+                n = self.count()
+                for i in range(0,n):
+                    img  = self.item(i)
+                    img.regions().save(storage_name, do_append)
+            else:
+                raise MyException.MyException("error: storage type no specified or not found")
+            return 0
+        except Exception as e:
+            print("one or more input labels might be wrong:{}".format(e))
+            return 0
