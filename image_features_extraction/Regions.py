@@ -5,7 +5,7 @@ from image_features_extraction import MyException
 from image_features_extraction import Features
 
 from skimage.measure import label, regionprops
-
+from image_features_extraction import Utils
 
 class Regions(my_iterator.my_iterator):
     """
@@ -204,7 +204,7 @@ class Regions(my_iterator.my_iterator):
             return None
 
 
-    def get_features(self, features, class_value=None, class_name=None):
+    def features(self, feature_list, class_value=None, class_name='class_name'):
         """
         get_features(...)  returns a table with all  values for the property names given in input, and supplies an
         additional parameter for feature classification
@@ -213,6 +213,8 @@ class Regions(my_iterator.my_iterator):
         :type features: List
         :param class_value: classification label
         :type class_value: int, string (default=None)
+        : param image_mask: expernal Image mask to be used for the segmentation
+        :type image_mask: Image
         :returns: table cointaining all property values (columns) for all elements in the regions object  (rows)
         :rtype: Pandas.DataFrame
         :example:
@@ -220,13 +222,18 @@ class Regions(my_iterator.my_iterator):
         >>> imgs = fe.Images(folder_name)
         >>> img = imgs.item(1)
         >>> regs = img.Regions()
-        >>> df = regs.get_features(['label', 'area','perimeter', 'centroid'], class_value=1)
+        >>> feature = regs.get_features(['label', 'area','perimeter', 'centroid'], class_value=1)
+        >>>
+        >>> # external image mask
+        >>> img_masks = fe.Images(folder_name)
+        >>> features = regs.get_features(['label', 'area','perimeter', 'centroid'], class_value=1, image_mask=img_masks.item(1))
 
         """
         df = pd.DataFrame()
         try:
-            for f in features:
-                df[f] = self.prop_values(f)
+            for feature_name in feature_list:
+                values = self.prop_values(feature_name)
+                Utils.insert_values(feature_name, df, values)
             if class_value is not None:
                 df[class_name] = class_value
             return Features.Features(df)

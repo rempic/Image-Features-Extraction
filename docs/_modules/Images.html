@@ -126,7 +126,41 @@
                 <span class="k">raise</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span><span class="p">(</span><span class="s2">&quot;error: index out of bound&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__folder_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dicfiles</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
         <span class="k">except</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div></div>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Images.save"><a class="viewcode-back" href="../code.html#Images.Images.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">storage_name</span><span class="p">,</span> <span class="n">type_storage</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">do_append</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        save the regions from the set of  images into the type of storage given in input.</span>
+
+<span class="sd">        :param storage_name: storage name, (e.g., file name if &#39; storage type is &#39;file&#39;)</span>
+<span class="sd">        :type storage_name: string</span>
+<span class="sd">        :param type_storage:  type of storage (default is &#39;file&#39;) (&#39;db&#39;, &#39;json&#39; will be future implementations)</span>
+<span class="sd">        :type type_storage: string</span>
+<span class="sd">        :param do_append: if True it appends to existing storage. If False it creates a new storage</span>
+<span class="sd">        :type do_append: boolean</span>
+<span class="sd">        if  &#39;do_append=True&#39;: This version of the method does not check whether the new data are consistent with presisitng data into</span>
+<span class="sd">        the existing storage. It just tris to append the date and might fail or not depending on the type of storage</span>
+<span class="sd">        :returns: 1 if sucessuful otherwise 0</span>
+<span class="sd">        :rtype: int</span>
+
+<span class="sd">        :example:</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; imgs..save(&#39;my_file_name&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">type_storage</span> <span class="o">==</span> <span class="s1">&#39;file&#39;</span><span class="p">:</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+                    <span class="n">img</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="n">img</span><span class="o">.</span><span class="n">regions</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">storage_name</span><span class="p">,</span> <span class="n">do_append</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span><span class="p">(</span><span class="s2">&quot;error: storage type no specified or not found&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;one or more input labels might be wrong:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="mi">0</span></div></div>
 </pre></div>
 
           </div>

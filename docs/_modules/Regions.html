@@ -46,7 +46,7 @@
 <span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">Features</span>
 
 <span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="k">import</span> <span class="n">label</span><span class="p">,</span> <span class="n">regionprops</span>
-
+<span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">Utils</span>
 
 <div class="viewcode-block" id="Regions"><a class="viewcode-back" href="../code.html#Regions.Regions">[docs]</a><span class="k">class</span> <span class="nc">Regions</span><span class="p">(</span><span class="n">my_iterator</span><span class="o">.</span><span class="n">my_iterator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -245,7 +245,7 @@
             <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="Regions.get_features"><a class="viewcode-back" href="../code.html#Regions.Regions.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">class_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;class_name&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Regions.features"><a class="viewcode-back" href="../code.html#Regions.Regions.features">[docs]</a>    <span class="k">def</span> <span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_list</span><span class="p">,</span> <span class="n">class_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;class_name&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get_features(...)  returns a table with all  values for the property names given in input, and supplies an</span>
 <span class="sd">        additional parameter for feature classification</span>
@@ -254,6 +254,8 @@
 <span class="sd">        :type features: List</span>
 <span class="sd">        :param class_value: classification label</span>
 <span class="sd">        :type class_value: int, string (default=None)</span>
+<span class="sd">        : param image_mask: expernal Image mask to be used for the segmentation</span>
+<span class="sd">        :type image_mask: Image</span>
 <span class="sd">        :returns: table cointaining all property values (columns) for all elements in the regions object  (rows)</span>
 <span class="sd">        :rtype: Pandas.DataFrame</span>
 <span class="sd">        :example:</span>
@@ -261,13 +263,18 @@
 <span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
 <span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
 <span class="sd">        &gt;&gt;&gt; regs = img.Regions()</span>
-<span class="sd">        &gt;&gt;&gt; df = regs.get_features([&#39;label&#39;, &#39;area&#39;,&#39;perimeter&#39;, &#39;centroid&#39;], class_value=1)</span>
+<span class="sd">        &gt;&gt;&gt; feature = regs.get_features([&#39;label&#39;, &#39;area&#39;,&#39;perimeter&#39;, &#39;centroid&#39;], class_value=1)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # external image mask</span>
+<span class="sd">        &gt;&gt;&gt; img_masks = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; features = regs.get_features([&#39;label&#39;, &#39;area&#39;,&#39;perimeter&#39;, &#39;centroid&#39;], class_value=1, image_mask=img_masks.item(1))</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
-                <span class="n">df</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop_values</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">feature_list</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop_values</span><span class="p">(</span><span class="n">feature_name</span><span class="p">)</span>
+                <span class="n">Utils</span><span class="o">.</span><span class="n">insert_values</span><span class="p">(</span><span class="n">feature_name</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">class_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">df</span><span class="p">[</span><span class="n">class_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">class_value</span>
             <span class="k">return</span> <span class="n">Features</span><span class="o">.</span><span class="n">Features</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>

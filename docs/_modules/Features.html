@@ -90,9 +90,9 @@
 <span class="sd">        load the data from the local directory with name indicated</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">do_append</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
-            <span class="n">add_header</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">add_header</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-                <span class="n">add_header</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">add_header</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="c1"># it appends or creates a new file</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__data_frame</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">add_header</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
