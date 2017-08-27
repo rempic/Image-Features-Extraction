@@ -7,7 +7,7 @@ class my_iterator(object):
     """
     __metaclass__ = ABCMeta
 
-    def __iterator_init__(self):
+    def __init__(self):
         self.current = -1
         self.__count = 0
 

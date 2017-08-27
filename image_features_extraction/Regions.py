@@ -22,7 +22,8 @@ class Regions(my_iterator.my_iterator):
 
     def __init__(self, obj_regions):
         try:
-             self.__iterator_init__()
+             #self.__iterator_init__()
+             super().__init__()
              self.__obj_regions_org = obj_regions
              self.__obj_regions = regionprops(obj_regions) # used regionprops from skimage
              self.count_update(len(self.__obj_regions))

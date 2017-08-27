@@ -27,8 +27,8 @@ class Images(my_iterator.my_iterator):
         """
         class initializer. to implement the class as a collection this object inherits the abstract class my_iterator
         """
-        self.__iterator_init__()  # initializes my_iterator
-
+        super().__init__()
+        #self.__iterator_init__()  # initializes my_iterator
         self.__folder_name = folder_name
         self.__image_file_ext = image_file_ext
         self.__dicfiles = []
