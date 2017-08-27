@@ -3,41 +3,45 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
 Image Features Extraction
 ============================
 
-This package allows the fast extraction and classification of features  from a set of images. Then the resulting
-table can be used as training set for a classification machine learning model
+This package allows the fast extraction and classification of features  from a set of images.  The resulting
+table can be used as training set for a machine learning classifier
 
-The package was originally developed to extract measurements of single cell nuclei from microscopy images
-(see figure below), but it can be used to extract features from any set of images.
 
 .. image:: _static/1.png
    :width: 600px
    :alt: alternate text
 
-Below it is shown an example of an image with triangular shapes obtained  from Google, which features were extracted
-by using  the  image features extraction package  to build a training set for a machine learning classifier
 
-.. image:: _static/7c.png
-  :width: 500px
-  :alt: alternate text
+The package was originally developed to extract measurements of single cell nuclei from microscopy images (see figure above).
+The package can be used to extract features from any set of images for a variety of applications.
+Below it is shown a map of Boston used for city density and demographic models.
 
-The image below show a possible workflow for the image features extraction package where two sets of images
-with different labels were  extracted and returned in a table. Then the table can be used as training set to train
-a machine learning classifier
+
+.. image:: _static/8.png
+   :width: 600px
+   :alt: alternate text
+
+
+The image below shows a possible workflow for image feature extraction: two sets of images
+with different classification labels are used to produce two data sets for training and testing a classifier
+
 
 .. image:: _static/2b.png
   :width: 600px
   :alt: alternate text
 
-The image features extraction package  has a  document object model architecture (shown below)
+
+The image features extraction package  was developed using  the  document object model architecture shown below
 
 .. image:: _static/3b.png
   :width: 600px
   :alt: alternate text
 
-See classes/modules documentation for more details about the package code
+See classes/modules documentation for more details about the use of the package
 
 
 
