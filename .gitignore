@@ -7,3 +7,4 @@
 .Trashes
 notes.txt
 .*
+./tutorial/voronoi/*
