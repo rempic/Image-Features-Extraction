@@ -46,7 +46,7 @@
 <dl class="class">
 <dt id="Images.Images">
 <em class="property">class </em><code class="descclassname">Images.</code><code class="descname">Images</code><span class="sig-paren">(</span><em>folder_name, image_file_ext=['tif', 'tiff']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Images.html#Images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Images.Images" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class contains a collection of images</p>
+<dd><p>This class loads a collection of images for extraction of features</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -104,42 +104,6 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">image_features_extraction</span> <span class="k">as</span> <span class="nn">fe</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">Images</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">imgs</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="Images.Images.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>storage_name</em>, <em>type_storage='file'</em>, <em>do_append=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Images.html#Images.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Images.Images.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>save the regions from the set of  images into the type of storage given in input.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>storage_name</strong> (<em>string</em>) – storage name, (e.g., file name if ‘ storage type is ‘file’)</li>
-<li><strong>type_storage</strong> (<em>string</em>) – type of storage (default is ‘file’) (‘db’, ‘json’ will be future implementations)</li>
-<li><strong>do_append</strong> (<em>boolean</em>) – if True it appends to existing storage. If False it creates a new storage</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>if  ‘do_append=True’: This version of the method does not check whether the new data are consistent with presisitng data into
-the existing storage. It just tris to append the date and might fail or not depending on the type of storage
-:returns: 1 if sucessuful otherwise 0
-:rtype: int</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">image_features_extraction</span> <span class="k">as</span> <span class="nn">fe</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">Images</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span><span class="o">..</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;my_file_name&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -965,13 +929,15 @@ image up to 3rd order:</p>
 </tbody>
 </table>
 <p>if  ‘do_append=True’: This version of the method does not check whether the new data are consistent with presisitng data into
-the existing storage. It just tris to append the date and might fail or not depending on the type of storage
-:returns: 1 if sucessuful otherwise 0
-:rtype: int</p>
+the existing storage. It just tries to append the date and might fail or not depending on the type of storage</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">1 if sucessuful otherwise 0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
 <tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"></td>
 </tr>
 </tbody>

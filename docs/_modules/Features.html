@@ -72,7 +72,7 @@
 <div class="viewcode-block" id="Features.merge"><a class="viewcode-back" href="../code.html#Features.Features.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Features_Obj</span><span class="p">,</span> <span class="n">how_in</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Merges in the current Features object a second Features object (ex. obtained from the Voronoi Object)</span>
-<span class="sd">        </span>
+
 <span class="sd">        :param Features_Obj: External Features Object</span>
 <span class="sd">        :type Features_Obj: Features (image_features_extraction package)</span>
 <span class="sd">        :param how_in: &#39;inner&#39;, &#39;outer&#39;</span>
@@ -101,7 +101,8 @@
 <span class="sd">        :param do_append: if True it appends to existing storage. If False it creates a new storage</span>
 <span class="sd">        :type do_append: boolean</span>
 <span class="sd">        if  &#39;do_append=True&#39;: This version of the method does not check whether the new data are consistent with presisitng data into</span>
-<span class="sd">        the existing storage. It just tris to append the date and might fail or not depending on the type of storage</span>
+<span class="sd">        the existing storage. It just tries to append the date and might fail or not depending on the type of storage</span>
+<span class="sd">        </span>
 <span class="sd">        :returns: 1 if sucessuful otherwise 0</span>
 <span class="sd">        :rtype: int</span>
 

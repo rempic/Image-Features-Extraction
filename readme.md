@@ -788,7 +788,7 @@ features3.get_dataframe(include_class=True).head()
 
 ## To measure intensity from image regions
 
-The example below shows how to associate a grayscale image to a binary one for intensity measurement. The package uses intenally a very simple segmentation algorithm based on an Otsu Thresholding method for segmentation of binary images. The goal of the package in not to segment images but to measurement their segmented features. The corect way to use this package is by using as input pre-segmented binary images and if intensity measurement are needed you can assaciate the original grayscale image.
+The example below shows how to associate a grayscale image to a binary one for intensity measurement. The package uses intenally a very simple segmentation algorithm based on an Otsu Thresholding method for segmentation of binary images. The goal of the package is not to segment images but to measure their segmented features. The correct way to use this package is by using as input pre-segmented binary images and if intensity measurement are needed to associate the original grayscale image.
 
 
 ```python

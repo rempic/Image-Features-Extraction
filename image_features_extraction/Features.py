@@ -31,7 +31,7 @@ class Features(object):
     def merge(self, Features_Obj, how_in='inner'):
         """
         Merges in the current Features object a second Features object (ex. obtained from the Voronoi Object)
-        
+
         :param Features_Obj: External Features Object
         :type Features_Obj: Features (image_features_extraction package)
         :param how_in: 'inner', 'outer'
@@ -60,7 +60,8 @@ class Features(object):
         :param do_append: if True it appends to existing storage. If False it creates a new storage
         :type do_append: boolean
         if  'do_append=True': This version of the method does not check whether the new data are consistent with presisitng data into
-        the existing storage. It just tris to append the date and might fail or not depending on the type of storage
+        the existing storage. It just tries to append the date and might fail or not depending on the type of storage
+        
         :returns: 1 if sucessuful otherwise 0
         :rtype: int
 
