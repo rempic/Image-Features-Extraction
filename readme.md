@@ -9,13 +9,13 @@ This package allows the fast extraction and classification of features from a se
 This Python package allows the fast extraction and classification of features from a set of images. The resulting data frame can be used as training and testing set for machine learning classifier.
 
 
-<img src="images/1.png">
+<img src="./images/1.png">
 
 
 This package was originally developed to extract measurements of single cell nuclei from microscopy images (see figure above). The package can be used to extract features from any set of images for a variety of applications.
 Below it is shown a map of Boston used for city density and demographic models.
 
-<img src="images/12.png">
+<img src="./images/12.png">
 
 ## Features extraction for spatial classification of images
 
