@@ -144,6 +144,19 @@
 </tr>
 </tbody>
 </table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">image_features_extraction</span> <span class="k">as</span> <span class="nn">fe</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">Images</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">imgs</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">voro</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">Voronoi</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># show voronoi diagram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vor</span><span class="o">.</span><span class="n">get_voronoi_map</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;jet&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">

@@ -48,6 +48,19 @@ class Image(object):
 
         :return: Voronoi object for the current image
         :rtype: Voronoi object
+        >>> import matplotlib.pyplot as plt
+        >>>
+        >>> import image_features_extraction as fe
+        >>>
+        >>> imgs = fe.Images(folder_name)
+        >>> img = imgs.item(1)
+        >>>
+        >>> voro = img.Voronoi()
+        >>> # show voronoi diagram
+        >>> fig = plt.figure(figsize=(20,20))
+        >>> plt.imshow(vor.get_voronoi_map(), cmap=plt.get_cmap('jet'))
+
+
         """
         return VF.Voronoi(self.__centroids, self.__image.shape[1], self.__image.shape[0])
 

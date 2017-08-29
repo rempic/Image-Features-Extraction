@@ -89,6 +89,19 @@
 
 <span class="sd">        :return: Voronoi object for the current image</span>
 <span class="sd">        :rtype: Voronoi object</span>
+<span class="sd">        &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction as fe</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; imgs = fe.Images(folder_name)</span>
+<span class="sd">        &gt;&gt;&gt; img = imgs.item(1)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; voro = img.Voronoi()</span>
+<span class="sd">        &gt;&gt;&gt; # show voronoi diagram</span>
+<span class="sd">        &gt;&gt;&gt; fig = plt.figure(figsize=(20,20))</span>
+<span class="sd">        &gt;&gt;&gt; plt.imshow(vor.get_voronoi_map(), cmap=plt.get_cmap(&#39;jet&#39;))</span>
+
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">VF</span><span class="o">.</span><span class="n">Voronoi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__centroids</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
 
