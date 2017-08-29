@@ -76,7 +76,7 @@ ax.imshow(IMGS.item(0).get_image_segmentation())
 
 
 
-![png](output_11_2.png)
+![png](./images/output_11_2.png)
 
 
 
@@ -192,7 +192,7 @@ plt.plot(df2.centroid_x,df2.centroid_y,'.r' )
 
 
 
-![png](output_13_1.png)
+![png](./images/output_13_1.png)
 
 
 
@@ -201,7 +201,7 @@ h = plt.hist(df2.area,100)
 ```
 
 
-![png](output_14_0.png)
+![png](./images/output_14_0.png)
 
 
 # Image features extraction for cellular spatial analysis
@@ -252,7 +252,7 @@ ax.imshow(IMGS.item(1).get_image_segmentation())
 
 
 
-![png](output_18_1.png)
+![png](./images/output_18_1.png)
 
 
 ## An example of measurement and visualization of a property, e.g., area
@@ -280,7 +280,7 @@ plt.ylabel('region area (px^2)')
 
 
 
-![png](output_20_1.png)
+![png](./images/output_20_1.png)
 
 
 
@@ -289,7 +289,7 @@ h = plt.hist(df2.area,100)
 ```
 
 
-![png](output_21_0.png)
+![png](./images/output_21_0.png)
 
 
 ## VORONOI FEATURES
@@ -315,7 +315,7 @@ plt.imshow(IMG_VOR, cmap=plt.get_cmap('jet'))
 
 
 
-![png](output_24_1.png)
+![png](./images/output_24_1.png)
 
 
 
@@ -341,7 +341,7 @@ plt.imshow(i3, cmap=plt.get_cmap('Reds'))
 
 
 
-![png](output_26_1.png)
+![png](./images/output_26_1.png)
 
 
 ### Feature from the image only
@@ -914,7 +914,7 @@ plt.ylabel('mean_intensity')
 
 
 
-![png](output_38_1.png)
+![png](./images/output_38_1.png)
 
 
 ## An example of how save measured features
