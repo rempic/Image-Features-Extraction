@@ -205,7 +205,7 @@ class Regions(my_iterator.my_iterator):
             return None
 
 
-    def features(self, feature_list, class_value=None, class_name='class_name'):
+    def features(self, feature_list):
         """
         get_features(...)  returns a table with all  values for the property names given in input, and supplies an
         additional parameter for feature classification
@@ -235,8 +235,6 @@ class Regions(my_iterator.my_iterator):
             for feature_name in feature_list:
                 values = self.prop_values(feature_name)
                 Utils.insert_values(feature_name, df, values)
-            if class_value is not None:
-                df[class_name] = class_value
             return Features.Features(df)
         except Exception as e:
             print("one or more input labels might be wrong:{}".format(e))

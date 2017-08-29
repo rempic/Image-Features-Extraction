@@ -41,6 +41,40 @@ The image features extraction package  was developed using  the  document object
   :width: 600px
   :alt: alternate text
 
+The object 'Image' includes the function Voronoi(), which returns the object Voronoi of my package Voronoi_Features.
+The Voronoi object can be used to measure the voronoi tassels of each image regions. It includes >30 measurements.
+Below an example of voronoi diagrams from the image shown above
+
+.. image:: _static/09.png
+  :width: 600px
+  :alt: alternate text
+
+.. image:: _static/10.png
+  :width: 600px
+  :alt: alternate text
+
+.. image:: _static/voro3.png
+  :width: 600px
+  :alt: alternate text
+
+.. image:: _static/voro4.png
+  :width: 600px
+  :alt: alternate text
+
+
+.. image:: _static/12.png
+  :width: 600px
+  :alt: alternate text
+
+.. image:: _static/13.png
+  :width: 600px
+  :alt: alternate text
+
+.. image:: _static/14.png
+  :width: 600px
+  :alt: alternate text
+
+
 See classes/modules documentation for more details about the use of the package
 
 

@@ -13,6 +13,8 @@ from image_features_extraction import MyException
 from image_features_extraction import Features
 from image_features_extraction import Utils
 
+import Voronoi_Features.Voronoi as VF
+
 
 class Image(object):
     """
@@ -26,25 +28,36 @@ class Image(object):
     def __init__(self, full_name):
         self.__full_file_name = full_name
         self.__regions = None
-        #self.__image_mask = None
-        #self.__mask = None
         self.__regionsprops = None
         self.__image_intensity = None
         self.__image = None
+        self.__image_semented = None
         try:
-            # load the image
-
+            # load  image and  segment
             self.__image = io.imread(self.__full_file_name)
-
-            # make and load the mask
-            #if image_mask is None:
-            #    self.__mask = self.__get_mask(redo = True)
-            #else:
-            #    self.__mask = image_mask.__get_mask(redo = False) # use the external mask
-            #load the regions
-            #self.__regions, self.__regionsprops = self.__get_regions(redo = True)
+            self.__image_semented  = self.__get_regions()
+            self.__regionsprops = self.__get_regionsprop()
+            self.__centroids = self.prop_values('centroid')
         except MyException.MyException as e:
             print(e.args)
+
+
+    def Voronoi(self):
+        """
+        Image Voronoi diagram (refer to documentaiton of my package Voronoi_Features in my github )
+
+        :return: Voronoi object for the current image
+        :rtype: Voronoi object
+        """
+        return VF.Voronoi(self.__centroids, self.__image.shape[1], self.__image.shape[0])
+
+
+    def width(self):
+        return self.__image.shape[1]
+
+
+    def height(self):
+        return self.__image.shape[0]
 
 
     def file_name(self):
@@ -74,7 +87,7 @@ class Image(object):
 
             """
             self.__image_intensity = image_intensity.__image
-
+            self.__regionsprops = self.__get_regionsprop()
 
     def regions(self):
         """
@@ -88,20 +101,11 @@ class Image(object):
         >>> regs = img.Regions()
         """
         try:
-            return Regions.Regions(self.__get_regions())
+            return Regions.Regions(self.__image_semented) # (self.__get_regions())
         except MyException.MyException as e:
             print(e.args)
             return None
 
-
-    #def __get_regions_old(self, redo = False):
-    #    if redo == False:
-    #        return self.__regions
-    #    # returns the single segmented elements of the image
-    #    labels_segment = label(self.__mask)
-    #    # removes the image elements at the borde
-    #    labels_cleaned = clear_border(labels_segment)
-    #    return labels_cleaned, regionprops(labels_cleaned)
 
     def __get_regions(self):
         # apply thresholding
@@ -139,41 +143,34 @@ class Image(object):
             print(e.args)
             return None
 
-
-    def features(self, features_list, class_value=None, class_name='class_name'):
+    def features(self, features_list, prefix='', suffix=''):
         """
         Returns a table with all  values for the property names given in input, and supplies an
         additional parameter for feature classification
 
-        :param features: list of property/measure names (e.g, 'area', 'centroid', etc )
-        :type features: List
-        :param class_value: classification label
-        :type class_value: int, string (default=None)
-        :param image_mask: expernal Image mask to be used for the segmentation
-        :type image_mask: Image
-        :returns: table cointaining all property values (columns) for all elements in the regions object  (rows)
-        :rtype: Pandas.DataFrame
+        :param features_list: list of property/measure names (e.g, 'area', 'centroid', etc )
+        :type features_list: List
+        :param prefix: prefix for features name
+        :type prefix:  string
+        :param suffix: prefix for features name
+        :type suffix: string
+        :returns: Features Object
+        :rtype: Features Object
         :example:
         >>> import image_features_extraction as fe
         >>> imgs = fe.Images(folder_name)
         >>> img = imgs.item(1)
-        >>> regs = img.Regions()
-        >>> feature = regs.get_features(['label', 'area','perimeter', 'centroid'], class_value=1)
-        >>>
-        >>> # external image mask
-        >>> img_intensity = imgs.item(0) # new image
-        >>> img.set_image_intensity(img_intensity)
-        >>> features = IMG.features(['label', 'area','perimeter', 'centroid','major_axis_length', 'moments','mean_intensity'], class_value=5)
-
+        >>> feature = img.get_features(['label', 'area','perimeter', 'centroid'])
         """
         df = pd.DataFrame()
         try:
-            self.__regionsprops = self.__get_regionsprop()
+            #self.__regionsprops = self.__get_regionsprop()
+            n = len(self.__regionsprops)
+            df['id'] = range(0,n)
             for feature_name in features_list:
                 values = self.prop_values(feature_name)
-                Utils.insert_values(feature_name, df, values)
-            if class_value is not None:
-                df[class_name] = class_value
+                Utils.insert_values(prefix + feature_name + suffix, df, values)
+
             return Features.Features(df)
         except Exception as e:
             print("one or more input labels might be wrong:{}".format(e))

@@ -167,8 +167,24 @@ the existing storage. It just tris to append the date and might fail or not depe
 </pre></div>
 </div>
 <dl class="method">
+<dt id="Image.Image.Voronoi">
+<code class="descname">Voronoi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Image.html#Image.Voronoi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Image.Image.Voronoi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Image Voronoi diagram (refer to documentaiton of my package Voronoi_Features in my github )</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Voronoi object for the current image</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Voronoi object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="Image.Image.features">
-<code class="descname">features</code><span class="sig-paren">(</span><em>features_list</em>, <em>class_value=None</em>, <em>class_name='class_name'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Image.html#Image.features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Image.Image.features" title="Permalink to this definition">¶</a></dt>
+<code class="descname">features</code><span class="sig-paren">(</span><em>features_list</em>, <em>prefix=''</em>, <em>suffix=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Image.html#Image.features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Image.Image.features" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a table with all  values for the property names given in input, and supplies an
 additional parameter for feature classification</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -176,16 +192,16 @@ additional parameter for feature classification</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>features</strong> (<em>List</em>) – list of property/measure names (e.g, ‘area’, ‘centroid’, etc )</li>
-<li><strong>class_value</strong> (<em>int</em><em>, </em><em>string</em><em> (</em><em>default=None</em><em>)</em>) – classification label</li>
-<li><strong>image_mask</strong> (<a class="reference internal" href="#module-Image" title="Image"><em>Image</em></a>) – expernal Image mask to be used for the segmentation</li>
+<li><strong>features_list</strong> (<em>List</em>) – list of property/measure names (e.g, ‘area’, ‘centroid’, etc )</li>
+<li><strong>prefix</strong> (<em>string</em>) – prefix for features name</li>
+<li><strong>suffix</strong> (<em>string</em>) – prefix for features name</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">table cointaining all property values (columns) for all elements in the regions object  (rows)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Features Object</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Pandas.DataFrame</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Features Object</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
@@ -195,13 +211,7 @@ additional parameter for feature classification</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">image_features_extraction</span> <span class="k">as</span> <span class="nn">fe</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">Images</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">imgs</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">regs</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">Regions</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">feature</span> <span class="o">=</span> <span class="n">regs</span><span class="o">.</span><span class="n">get_features</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">,</span><span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid&#39;</span><span class="p">],</span> <span class="n">class_value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># external image mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">img_intensity</span> <span class="o">=</span> <span class="n">imgs</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># new image</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">set_image_intensity</span><span class="p">(</span><span class="n">img_intensity</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">IMG</span><span class="o">.</span><span class="n">features</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">,</span><span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid&#39;</span><span class="p">,</span><span class="s1">&#39;major_axis_length&#39;</span><span class="p">,</span> <span class="s1">&#39;moments&#39;</span><span class="p">,</span><span class="s1">&#39;mean_intensity&#39;</span><span class="p">],</span> <span class="n">class_value</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">feature</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_features</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">,</span><span class="s1">&#39;perimeter&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -237,6 +247,11 @@ additional parameter for feature classification</p>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="method">
+<dt id="Image.Image.height">
+<code class="descname">height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Image.html#Image.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Image.Image.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="Image.Image.prop_values">
@@ -440,6 +455,11 @@ image up to 3rd order:</p>
 &gt;&gt;&gt; features = IMG.features([‘label’, ‘area’,’perimeter’, ‘centroid’,’major_axis_length’, ‘moments’,’mean_intensity’], class_value=5)</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="Image.Image.width">
+<code class="descname">width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Image.html#Image.width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Image.Image.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -478,7 +498,7 @@ Regions(…)</p>
 
 <dl class="method">
 <dt id="Regions.Regions.features">
-<code class="descname">features</code><span class="sig-paren">(</span><em>feature_list</em>, <em>class_value=None</em>, <em>class_name='class_name'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Regions.html#Regions.features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Regions.Regions.features" title="Permalink to this definition">¶</a></dt>
+<code class="descname">features</code><span class="sig-paren">(</span><em>feature_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Regions.html#Regions.features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Regions.Regions.features" title="Permalink to this definition">¶</a></dt>
 <dd><p>get_features(…)  returns a table with all  values for the property names given in input, and supplies an
 additional parameter for feature classification</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -877,9 +897,54 @@ image up to 3rd order:</p>
 <em class="property">class </em><code class="descclassname">Features.</code><code class="descname">Features</code><span class="sig-paren">(</span><em>data_frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features" title="Permalink to this definition">¶</a></dt>
 <dd><p>contain the dataframe</p>
 <dl class="method">
+<dt id="Features.Features.get_class_name">
+<code class="descname">get_class_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features.get_class_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features.get_class_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Features.Features.get_class_value">
+<code class="descname">get_class_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features.get_class_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features.get_class_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="Features.Features.get_dataframe">
-<code class="descname">get_dataframe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features.get_dataframe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features.get_dataframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns  the data frame contining the feature values</p>
+<code class="descname">get_dataframe</code><span class="sig-paren">(</span><em>include_class=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features.get_dataframe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features.get_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates  a panda data frame contining the feature values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>include_class</strong> (<em>Boolean</em>) – if True if includes the class name and value as the last column</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Features.Features.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>Features_Obj</em>, <em>how_in='inner'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges in the current Features object a second Features object (ex. obtained from the Voronoi Object)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>Features_Obj</strong> (<a class="reference internal" href="#module-Features" title="Features"><em>Features</em></a><em> (</em><em>image_features_extraction package</em><em>)</em>) – External Features Object</li>
+<li><strong>how_in</strong> (<em>string</em>) – ‘inner’, ‘outer’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">image_features_extraction.Images</span> <span class="k">as</span> <span class="nn">fe</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">IMGS</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">Images</span><span class="p">(</span><span class="s1">&#39;../images/CA/1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vor</span> <span class="o">=</span> <span class="n">IMG</span><span class="o">.</span><span class="n">Voronoi</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features1</span> <span class="o">=</span> <span class="n">IMG</span><span class="o">.</span><span class="n">features</span><span class="p">([</span><span class="s1">&#39;area&#39;</span><span class="p">,</span><span class="s1">&#39;perimeter&#39;</span><span class="p">,</span><span class="s1">&#39;centroid&#39;</span><span class="p">,</span><span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;eccentricity&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features2</span> <span class="o">=</span> <span class="n">vor</span><span class="o">.</span><span class="n">features</span><span class="p">([</span><span class="s1">&#39;area&#39;</span><span class="p">,</span><span class="s1">&#39;perimeter&#39;</span><span class="p">,</span><span class="s1">&#39;centroid&#39;</span><span class="p">,</span><span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;eccentricity&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features3</span> <span class="o">=</span> <span class="n">features1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">features2</span><span class="p">,</span> <span class="n">how_in</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features3</span><span class="o">.</span><span class="n">get_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -920,6 +985,16 @@ the existing storage. It just tris to append the date and might fail or not depe
 </pre></div>
 </div>
 </dd></dl>
+
+<dl class="method">
+<dt id="Features.Features.set_class_name">
+<code class="descname">set_class_name</code><span class="sig-paren">(</span><em>class_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features.set_class_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features.set_class_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Features.Features.set_class_value">
+<code class="descname">set_class_value</code><span class="sig-paren">(</span><em>class_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Features.html#Features.set_class_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Features.Features.set_class_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

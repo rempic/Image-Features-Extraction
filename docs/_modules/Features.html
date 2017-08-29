@@ -41,7 +41,7 @@
   <h1>Source code for Features</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
-
+<span class="kn">from</span> <span class="nn">image_features_extraction</span> <span class="k">import</span> <span class="n">MyException</span>
 
 <div class="viewcode-block" id="Features"><a class="viewcode-back" href="../code.html#Features.Features">[docs]</a><span class="k">class</span> <span class="nc">Features</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -49,6 +49,45 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_frame</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__data_frame</span> <span class="o">=</span> <span class="n">data_frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__class_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__class_value</span><span class="o">=</span><span class="kc">None</span>
+
+
+<div class="viewcode-block" id="Features.set_class_name"><a class="viewcode-back" href="../code.html#Features.Features.set_class_name">[docs]</a>    <span class="k">def</span> <span class="nf">set_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__class_name</span> <span class="o">=</span> <span class="n">class_name</span></div>
+
+
+<div class="viewcode-block" id="Features.set_class_value"><a class="viewcode-back" href="../code.html#Features.Features.set_class_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_class_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__class_value</span> <span class="o">=</span> <span class="n">class_value</span></div>
+
+
+<div class="viewcode-block" id="Features.get_class_name"><a class="viewcode-back" href="../code.html#Features.Features.get_class_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class_name</span></div>
+
+
+<div class="viewcode-block" id="Features.get_class_value"><a class="viewcode-back" href="../code.html#Features.Features.get_class_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_class_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class_value</span></div>
+
+
+<div class="viewcode-block" id="Features.merge"><a class="viewcode-back" href="../code.html#Features.Features.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Features_Obj</span><span class="p">,</span> <span class="n">how_in</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Merges in the current Features object a second Features object (ex. obtained from the Voronoi Object)</span>
+<span class="sd">        </span>
+<span class="sd">        :param Features_Obj: External Features Object</span>
+<span class="sd">        :type Features_Obj: Features (image_features_extraction package)</span>
+<span class="sd">        :param how_in: &#39;inner&#39;, &#39;outer&#39;</span>
+<span class="sd">        :type how_in: string</span>
+<span class="sd">        &gt;&gt;&gt; import image_features_extraction.Images as fe</span>
+<span class="sd">        &gt;&gt;&gt; IMGS = fe.Images(&#39;../images/CA/1&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; vor = IMG.Voronoi()</span>
+<span class="sd">        &gt;&gt;&gt; features1 = IMG.features([&#39;area&#39;,&#39;perimeter&#39;,&#39;centroid&#39;,&#39;bbox&#39;, &#39;eccentricity&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; features2 = vor.features([&#39;area&#39;,&#39;perimeter&#39;,&#39;centroid&#39;,&#39;bbox&#39;, &#39;eccentricity&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; features3 = features1.merge(features2, how_in=&#39;inner&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; features3.get_dataframe().head()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df1</span> <span class="o">=</span> <span class="n">Features_Obj</span><span class="o">.</span><span class="n">get_dataframe</span><span class="p">();</span>
+        <span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__data_frame</span><span class="p">,</span> <span class="n">df1</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="n">how_in</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Features</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Features.save"><a class="viewcode-back" href="../code.html#Features.Features.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">storage_name</span><span class="p">,</span> <span class="n">type_storage</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">do_append</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -87,7 +126,7 @@
 
     <span class="k">def</span> <span class="nf">__save_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">do_append</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        load the data from the local directory with name indicated</span>
+<span class="sd">        load the data from the local directory with the name indicated</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">do_append</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
             <span class="n">add_header</span> <span class="o">=</span> <span class="kc">False</span>
@@ -101,11 +140,27 @@
         <span class="k">return</span> <span class="mi">1</span>
 
 
-<div class="viewcode-block" id="Features.get_dataframe"><a class="viewcode-back" href="../code.html#Features.Features.get_dataframe">[docs]</a>    <span class="k">def</span> <span class="nf">get_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Features.get_dataframe"><a class="viewcode-back" href="../code.html#Features.Features.get_dataframe">[docs]</a>    <span class="k">def</span> <span class="nf">get_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_class</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        returns  the data frame contining the feature values</span>
+<span class="sd">        creates  a panda data frame contining the feature values</span>
+
+<span class="sd">        :param include_class: if True if includes the class name and value as the last column</span>
+<span class="sd">        :type include_class: Boolean</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_frame</span></div></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_frame</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">include_class</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class_name</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span><span class="p">(</span><span class="s2">&quot;error: class name not set&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span><span class="p">(</span><span class="s2">&quot;error: class value not set&quot;</span><span class="p">)</span>
+                <span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__class_name</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class_value</span>
+
+            <span class="k">return</span> <span class="n">df</span>
+        <span class="k">except</span> <span class="n">MyException</span><span class="o">.</span><span class="n">MyException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div></div>
 </pre></div>
 
           </div>

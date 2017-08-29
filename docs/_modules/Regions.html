@@ -63,7 +63,8 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_regions</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-             <span class="bp">self</span><span class="o">.</span><span class="n">__iterator_init__</span><span class="p">()</span>
+             <span class="c1">#self.__iterator_init__()</span>
+             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions_org</span> <span class="o">=</span> <span class="n">obj_regions</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span> <span class="o">=</span> <span class="n">regionprops</span><span class="p">(</span><span class="n">obj_regions</span><span class="p">)</span> <span class="c1"># used regionprops from skimage</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">count_update</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj_regions</span><span class="p">))</span>
@@ -245,7 +246,7 @@
             <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="Regions.features"><a class="viewcode-back" href="../code.html#Regions.Regions.features">[docs]</a>    <span class="k">def</span> <span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_list</span><span class="p">,</span> <span class="n">class_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;class_name&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Regions.features"><a class="viewcode-back" href="../code.html#Regions.Regions.features">[docs]</a>    <span class="k">def</span> <span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get_features(...)  returns a table with all  values for the property names given in input, and supplies an</span>
 <span class="sd">        additional parameter for feature classification</span>
@@ -275,8 +276,6 @@
             <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">feature_list</span><span class="p">:</span>
                 <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop_values</span><span class="p">(</span><span class="n">feature_name</span><span class="p">)</span>
                 <span class="n">Utils</span><span class="o">.</span><span class="n">insert_values</span><span class="p">(</span><span class="n">feature_name</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">class_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">df</span><span class="p">[</span><span class="n">class_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">class_value</span>
             <span class="k">return</span> <span class="n">Features</span><span class="o">.</span><span class="n">Features</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;one or more input labels might be wrong:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>

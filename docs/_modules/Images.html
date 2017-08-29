@@ -68,8 +68,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        class initializer. to implement the class as a collection this object inherits the abstract class my_iterator</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__iterator_init__</span><span class="p">()</span>  <span class="c1"># initializes my_iterator</span>
-
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1">#self.__iterator_init__()  # initializes my_iterator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__folder_name</span> <span class="o">=</span> <span class="n">folder_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__image_file_ext</span> <span class="o">=</span> <span class="n">image_file_ext</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__dicfiles</span> <span class="o">=</span> <span class="p">[]</span>
